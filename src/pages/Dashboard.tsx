@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGoogleDrive } from '@/hooks/useGoogleDrive';
 import { FileStatistics } from '@/components/dashboard/FileStatistics';
 import { FolderMonitor } from '@/components/dashboard/FolderMonitor';
+import { ProcessingLogs } from '@/components/dashboard/ProcessingLogs';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { GoogleDriveAuth } from '@/components/auth/GoogleDriveAuth';
 
@@ -23,6 +24,8 @@ const Dashboard = () => {
             <h1 className="text-3xl font-semibold text-gray-800 mb-2">Dashboard</h1>
             <p className="text-gray-600">View statistics and monitor your Google Drive files</p>
           </div>
+          
+          <ProcessingLogs className="animate-scale-in" />
           
           <FileStatistics className="animate-scale-in" />
           

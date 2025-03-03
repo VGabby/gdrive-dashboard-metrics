@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from "sonner";
 
@@ -37,6 +36,12 @@ export interface GoogleDriveStats {
     last7Days: number;
     last30Days: number;
   };
+}
+
+export interface ProcessingLogEntry {
+  date: string; // ISO format date string
+  filesProcessed: number;
+  creditCost: number;
 }
 
 // Mock data - in a real implementation this would be replaced with actual API calls
@@ -141,31 +146,51 @@ const mockRecentFiles: GoogleDriveFile[] = [
   }
 ];
 
-// This hook would handle actual Google Drive API integration in a real implementation
+const generateMockLogs = (): ProcessingLogEntry[] => {
+  const logs: ProcessingLogEntry[] = [];
+  const today = new Date();
+  
+  for (let i = 29; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    
+    const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+    const filesProcessed = Math.floor(Math.random() * (isWeekend ? 30 : 80)) + (isWeekend ? 5 : 30);
+    
+    const creditCost = parseFloat(((filesProcessed * 0.15) + (Math.random() * 5)).toFixed(2));
+    
+    logs.push({
+      date: date.toISOString().split('T')[0],
+      filesProcessed,
+      creditCost
+    });
+  }
+  
+  return logs;
+};
+
 export function useGoogleDrive() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [stats, setStats] = useState<GoogleDriveStats | null>(null);
   const [folders, setFolders] = useState<GoogleDriveFolder[]>([]);
   const [recentFiles, setRecentFiles] = useState<GoogleDriveFile[]>([]);
+  const [processingLogs, setProcessingLogs] = useState<ProcessingLogEntry[]>([]);
 
-  // Simulate authentication with Google Drive
   const authenticate = useCallback(() => {
     setIsLoading(true);
-    // In a real implementation, this would redirect to Google OAuth
     setTimeout(() => {
       setIsAuthenticated(true);
       setIsLoading(false);
       toast.success("Successfully connected to Google Drive");
       
-      // Load mock data
       setStats(mockStats);
       setFolders(mockFolders);
       setRecentFiles(mockRecentFiles);
+      setProcessingLogs(generateMockLogs());
     }, 1500);
   }, []);
 
-  // Simulate disconnecting from Google Drive
   const disconnect = useCallback(() => {
     setIsLoading(true);
     setTimeout(() => {
@@ -174,18 +199,16 @@ export function useGoogleDrive() {
       setStats(null);
       setFolders([]);
       setRecentFiles([]);
+      setProcessingLogs([]);
       toast.info("Disconnected from Google Drive");
     }, 500);
   }, []);
 
-  // Simulate fetching a folder's files
   const getFolderFiles = useCallback((folderId: string) => {
     setIsLoading(true);
-    // In a real implementation, this would make an API call to Google Drive
     setTimeout(() => {
       const folder = mockFolders.find(f => f.id === folderId);
       if (folder) {
-        // Generate some mock files based on the folder stats
         const files: GoogleDriveFile[] = Array.from({ length: 5 }).map((_, i) => ({
           id: `${folderId}-file-${i}`,
           name: `File ${i + 1}.${Object.keys(folder.stats.fileTypes)[i % Object.keys(folder.stats.fileTypes).length] || 'pdf'}`,
@@ -197,7 +220,6 @@ export function useGoogleDrive() {
           owners: [{ displayName: 'John Doe' }]
         }));
         
-        // Update the folder with files
         setFolders(prev => 
           prev.map(f => 
             f.id === folderId ? { ...f, files } : f
@@ -208,7 +230,6 @@ export function useGoogleDrive() {
     }, 800);
   }, []);
 
-  // Format bytes to human readable format
   const formatBytes = useCallback((bytes: number) => {
     if (bytes === 0) return '0 Bytes';
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
@@ -222,6 +243,7 @@ export function useGoogleDrive() {
     stats,
     folders,
     recentFiles,
+    processingLogs,
     authenticate,
     disconnect,
     getFolderFiles,
