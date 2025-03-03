@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, GoogleDrive, FileText, BarChart, FolderOpen } from 'lucide-react';
+import { ArrowRight, Database, FileText, BarChart, FolderOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Index = () => {
@@ -12,7 +12,7 @@ const Index = () => {
       <header className="w-full py-6 px-4 sm:px-6 lg:px-8 border-b border-gray-100">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center">
-            <GoogleDrive className="h-8 w-8 text-blue-500" />
+            <Database className="h-8 w-8 text-blue-500" />
             <span className="ml-2 text-xl font-medium text-gray-900">GDrive Monitor</span>
           </div>
           <Link to="/dashboard">
@@ -83,7 +83,7 @@ const Index = () => {
       <footer className="bg-white py-6 px-4 sm:px-6 lg:px-8 border-t border-gray-100">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center">
-            <GoogleDrive className="h-5 w-5 text-blue-500" />
+            <Database className="h-5 w-5 text-blue-500" />
             <span className="ml-2 text-sm text-gray-600">GDrive Monitor</span>
           </div>
           <div className="mt-4 md:mt-0 text-sm text-gray-500">

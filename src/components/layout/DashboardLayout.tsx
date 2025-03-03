@@ -11,8 +11,7 @@ import {
   LogOut, 
   Menu, 
   X,
-  Database,
-  GoogleDrive
+  Database
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -54,7 +53,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       >
         <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
           <Link to="/" className="flex items-center">
-            <GoogleDrive className="w-6 h-6 text-blue-500 mr-2" />
+            <Database className="w-6 h-6 text-blue-500 mr-2" />
             <span className="text-lg font-semibold text-gray-900">GDrive Monitor</span>
           </Link>
           <Button

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useGoogleDrive } from '@/hooks/useGoogleDrive';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { ArrowRight, CheckCircle, GoogleDrive } from 'lucide-react';
+import { ArrowRight, CheckCircle, Database } from 'lucide-react';
 
 interface GoogleDriveAuthProps {
   className?: string;
@@ -36,7 +36,7 @@ export function GoogleDriveAuth({ className }: GoogleDriveAuthProps) {
           <div className={cn("w-20 h-20 flex items-center justify-center rounded-full transition-all duration-500",
             isAuthenticated ? "bg-green-100" : "bg-blue-100"
           )}>
-            <GoogleDrive className={cn("w-10 h-10 transition-colors duration-500",
+            <Database className={cn("w-10 h-10 transition-colors duration-500",
               isAuthenticated ? "text-green-500" : "text-blue-500"
             )} />
           </div>
