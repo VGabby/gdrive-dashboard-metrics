@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -29,9 +28,8 @@ export function ProcessingLogs({ className }: ProcessingLogsProps) {
     const today = new Date();
     
     if (timeRange === 'week') {
-      // Get logs for the current week
-      const startOfCurrentWeek = startOfWeek(today, { weekStartsOn: 1 });  // Start on Monday
-      const endOfCurrentWeek = endOfWeek(today, { weekStartsOn: 1 });      // End on Sunday
+      const startOfCurrentWeek = startOfWeek(today, { weekStartsOn: 1 });
+      const endOfCurrentWeek = endOfWeek(today, { weekStartsOn: 1 });
       
       return processingLogs.filter(log => {
         const logDate = parseISO(log.date);
@@ -41,7 +39,6 @@ export function ProcessingLogs({ className }: ProcessingLogsProps) {
         });
       });
     } else {
-      // Filter by selected month (yyyy-MM format)
       const [year, month] = selectedMonth.split('-').map(Number);
       
       return processingLogs.filter(log => {
@@ -63,7 +60,6 @@ export function ProcessingLogs({ className }: ProcessingLogsProps) {
     filteredLogs.length ? (totalFilesProcessed / filteredLogs.length).toFixed(0) : '0',
   [filteredLogs, totalFilesProcessed]);
   
-  // Generate month options (last 12 months)
   const monthOptions = useMemo(() => {
     const options = [];
     const today = new Date();
@@ -78,7 +74,6 @@ export function ProcessingLogs({ className }: ProcessingLogsProps) {
     return options;
   }, []);
   
-  // Format chart data
   const chartData = useMemo(() => 
     filteredLogs.map(log => ({
       date: format(parseISO(log.date), 'MMM dd'),
@@ -236,7 +231,7 @@ export function ProcessingLogs({ className }: ProcessingLogsProps) {
           <TabsContent value="credits" className="focus:outline-none">
             <div className="h-[350px]">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+                <LineChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                   <XAxis 
                     dataKey="date" 
@@ -262,7 +257,7 @@ export function ProcessingLogs({ className }: ProcessingLogsProps) {
                     stroke="#10b981" 
                     name="Credits Used" 
                   />
-                </AreaChart>
+                </LineChart>
               </ResponsiveContainer>
             </div>
           </TabsContent>
@@ -272,7 +267,6 @@ export function ProcessingLogs({ className }: ProcessingLogsProps) {
   );
 }
 
-// Helper component for statistics cards
 function StatCard({ 
   icon, 
   title, 
