@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -11,7 +10,8 @@ import {
   LogOut, 
   Menu, 
   X,
-  Database
+  Database,
+  Brain
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -39,6 +39,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Folders', href: '/dashboard/folders', icon: FolderOpen },
     { name: 'Statistics', href: '/dashboard/statistics', icon: BarChart },
+    { name: 'AI Models', href: '/dashboard/ai-models', icon: Brain },
   ];
   
   return (
