@@ -172,10 +172,10 @@ const generateMockLogs = (): ProcessingLogEntry[] => {
 export function useGoogleDrive() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [stats, setStats] = useState<GoogleDriveStats | null>(null);
-  const [folders, setFolders] = useState<GoogleDriveFolder[]>([]);
-  const [recentFiles, setRecentFiles] = useState<GoogleDriveFile[]>([]);
-  const [processingLogs, setProcessingLogs] = useState<ProcessingLogEntry[]>([]);
+  const [stats, setStats] = useState<GoogleDriveStats | null>(mockStats);
+  const [folders, setFolders] = useState<GoogleDriveFolder[]>(mockFolders);
+  const [recentFiles, setRecentFiles] = useState<GoogleDriveFile[]>(mockRecentFiles);
+  const [processingLogs, setProcessingLogs] = useState<ProcessingLogEntry[]>(generateMockLogs());
 
   const authenticate = useCallback(() => {
     setIsLoading(true);
@@ -183,11 +183,6 @@ export function useGoogleDrive() {
       setIsAuthenticated(true);
       setIsLoading(false);
       toast.success("Successfully connected to Google Drive");
-      
-      setStats(mockStats);
-      setFolders(mockFolders);
-      setRecentFiles(mockRecentFiles);
-      setProcessingLogs(generateMockLogs());
     }, 1500);
   }, []);
 
@@ -196,10 +191,6 @@ export function useGoogleDrive() {
     setTimeout(() => {
       setIsAuthenticated(false);
       setIsLoading(false);
-      setStats(null);
-      setFolders([]);
-      setRecentFiles([]);
-      setProcessingLogs([]);
       toast.info("Disconnected from Google Drive");
     }, 500);
   }, []);

@@ -13,25 +13,26 @@ const Dashboard = () => {
   
   return (
     <DashboardLayout>
-      {!isAuthenticated ? (
-        <div className="flex flex-col items-center justify-center min-h-[80vh]">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-8 text-center">Connect to Google Drive</h2>
-          <GoogleDriveAuth className="max-w-lg" />
+      <div className="space-y-8 animate-fade-in">
+        <div>
+          <h1 className="text-3xl font-semibold text-gray-800 mb-2">Dashboard</h1>
+          <p className="text-gray-600">View statistics and monitor your Google Drive files</p>
         </div>
-      ) : (
-        <div className="space-y-8 animate-fade-in">
-          <div>
-            <h1 className="text-3xl font-semibold text-gray-800 mb-2">Dashboard</h1>
-            <p className="text-gray-600">View statistics and monitor your Google Drive files</p>
+        
+        {!isAuthenticated && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <h3 className="text-lg font-medium text-blue-700 mb-2">Connect to Google Drive</h3>
+            <p className="text-blue-600 mb-4">Connect your Google Drive account to enable real-time data processing.</p>
+            <GoogleDriveAuth className="max-w-lg" />
           </div>
-          
-          <ProcessingLogs className="animate-scale-in" />
-          
-          <FileStatistics className="animate-scale-in" />
-          
-          <FolderMonitor className="animate-slide-in animate-delay-200" />
-        </div>
-      )}
+        )}
+        
+        <ProcessingLogs className="animate-scale-in" />
+        
+        <FileStatistics className="animate-scale-in" />
+        
+        <FolderMonitor className="animate-slide-in animate-delay-200" />
+      </div>
     </DashboardLayout>
   );
 };

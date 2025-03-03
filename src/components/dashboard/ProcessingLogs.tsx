@@ -18,7 +18,7 @@ interface ProcessingLogsProps {
 }
 
 export function ProcessingLogs({ className }: ProcessingLogsProps) {
-  const { isAuthenticated, processingLogs } = useGoogleDrive();
+  const { processingLogs } = useGoogleDrive();
   const [timeRange, setTimeRange] = useState<'week' | 'month'>('week');
   const [selectedMonth, setSelectedMonth] = useState<string>(format(new Date(), 'yyyy-MM'));
   
@@ -82,7 +82,7 @@ export function ProcessingLogs({ className }: ProcessingLogsProps) {
     })),
   [filteredLogs]);
   
-  if (!isAuthenticated || !processingLogs?.length) {
+  if (!processingLogs?.length) {
     return null;
   }
   

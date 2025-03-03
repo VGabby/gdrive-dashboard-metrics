@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGoogleDrive, GoogleDriveStats } from '@/hooks/useGoogleDrive';
@@ -12,9 +11,9 @@ interface FileStatisticsProps {
 }
 
 export function FileStatistics({ className }: FileStatisticsProps) {
-  const { stats, isAuthenticated, formatBytes } = useGoogleDrive();
+  const { stats, formatBytes } = useGoogleDrive();
   
-  if (!isAuthenticated || !stats) {
+  if (!stats) {
     return null;
   }
   
